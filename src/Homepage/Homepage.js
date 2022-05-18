@@ -16,7 +16,7 @@ const Homepage = () => {
             description: description
         }
         // Post Data From Here
-        fetch('http://localhost:5000/addtodo', {
+        fetch('https://zaman-todo-app.herokuapp.com/addtodo', {
             method: 'POST',
             body: JSON.stringify(todo),
             headers: {
@@ -30,14 +30,14 @@ const Homepage = () => {
     }
     // Get Data From Here
     useEffect(() => {
-        fetch('http://localhost:5000/alltodo')
+        fetch('https://zaman-todo-app.herokuapp.com/alltodo')
             .then(res => res.json())
             .then(data => setToDos(data))
 
     }, [todos])
     // Completed To Do Item
     const CompletedTodo = (id) => {
-        fetch(`http://localhost:5000/todo/${id}`, {
+        fetch(`https://zaman-todo-app.herokuapp.com/todo/${id}`, {
             method: 'PUT',
             body: JSON.stringify({ completed: 'true' }),
             headers: {
@@ -56,7 +56,7 @@ const Homepage = () => {
     const deleteTodo = (id) => {
         const sure = window.confirm('Are You Sure To Delete ?')
         if (sure) {
-            fetch(`http://localhost:5000/todo/${id}`, {
+            fetch(`https://zaman-todo-app.herokuapp.com/todo/${id}`, {
                 method: 'DELETE',
             })
                 .then((response) => response.json())
@@ -70,7 +70,7 @@ const Homepage = () => {
                 <img src="https://play-lh.googleusercontent.com/VPqK75BwKMtTDFF6UQS6E3GYdYqzvZfddDxoKRH-DSlXIcYLN_EeSy5OXKx0bhBTtLUU" alt="" />
                 <h2>To Do List</h2>
             </div>
-            <button onClick={()=>signOut(auth)} className='signout'>Signout</button>
+            <button onClick={() => signOut(auth)} className='signout'>Signout</button>
             <div>
 
             </div>
