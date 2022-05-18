@@ -1,5 +1,9 @@
+import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import auth from '../firebase.init';
 
 const Homepage = () => {
     const [todos, setToDos] = useState([])
@@ -41,7 +45,11 @@ const Homepage = () => {
             },
         })
             .then((response) => response.json())
-            .then((json) => console.log(json));
+            .then((json) => {
+                if (json?.acknowledged) {
+                    toast.success('Task Completed')
+                }
+            });
     }
 
     // Delete To Do item
@@ -57,10 +65,17 @@ const Homepage = () => {
     }
     return (
         <div className='homepage'>
+
             <div className='header'>
                 <img src="https://play-lh.googleusercontent.com/VPqK75BwKMtTDFF6UQS6E3GYdYqzvZfddDxoKRH-DSlXIcYLN_EeSy5OXKx0bhBTtLUU" alt="" />
                 <h2>To Do List</h2>
             </div>
+            <button onClick={()=>signOut(auth)} className='signout'>Signout</button>
+            <div>
+
+            </div>
+
+
 
             <form onSubmit={addNote} className="input">
                 <input name='title' type="text" placeholder='Title' required />
@@ -93,6 +108,8 @@ const Homepage = () => {
 
 
             </div>
+            <ToastContainer />
+
         </div>
     );
 };
